@@ -13,7 +13,7 @@
     }
 
     .quiz-container {
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
       background: #fff;
       padding: 25px;
@@ -39,27 +39,29 @@
       list-style: none;
       padding: 0;
       margin: 0 0 25px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* chia làm 2 cột */
+      gap: 10px 40px;
     }
 
     .answers li {
-      margin-bottom: 12px;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
     }
 
     .answers input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       cursor: pointer;
     }
 
     .answers label {
       cursor: pointer;
       flex: 1;
+      font-size: 15px;
     }
 
-    /* nút chính */
     button {
       display: block;
       margin: 0 auto;
@@ -76,9 +78,7 @@
       box-sizing: border-box;
     }
 
-    button:hover {
-      background: #218838;
-    }
+    button:hover { background: #218838; }
 
     #result-img {
       display: none;
@@ -93,7 +93,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
-    /* --- Popup --- */
     .popup {
       display: none;
       position: fixed;
@@ -118,10 +117,7 @@
       text-align: center;
     }
 
-    .popup-content img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
+    .popup-content img { max-width: 100%; border-radius: 10px; }
 
     .popup-close {
       position: absolute;
@@ -133,11 +129,8 @@
       cursor: pointer;
     }
 
-    .popup-close:hover {
-      color: red;
-    }
+    .popup-close:hover { color: red; }
 
-    /* --- Nút Gợi ý (title + sub text) --- */
     .hint-box {
       display: flex;
       flex-direction: column;
@@ -146,56 +139,86 @@
       gap: 6px;
       margin: 15px auto 0;
       padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
       background: transparent;
       border: 2px solid #555;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.2s, color 0.2s;
       width: 100%;
       box-sizing: border-box;
+      text-align: center;
     }
 
-    .hint-box:hover {
-      background: #f8f8f8;
-    }
+    .hint-box:hover { background: #f8f8f8; }
 
-    .hint-title {
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 1;
-      color: #333;
-    }
+    .hint-title { font-size: 16px; font-weight: bold; }
+    .hint-sub { font-size: 12px; color: #777; }
 
-    .hint-sub {
-      font-size: 12px;
-      color: #777;
-      line-height: 1.2;
+    @media (max-width: 600px) {
+      .answers { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="quiz-container" id="quiz">
-    <h2>Câu hỏi: Tìm ra hướng đi đúng của vụ án</h2>
-    <div class="subtitle">Đâu là những vật chứng khiến bạn đưa ra hướng đi mới cho vụ án</div>
+    <h2>Quiz: 2 câu về vụ án</h2>
+    <div class="subtitle">Câu 1: Địa điểm giết người tiếp theo (chọn 1 đáp án). Câu 2: Thời gian diễn ra vụ án (chọn 2 đáp án).</div>
 
+    <h3>Câu 1: Địa điểm giết người tiếp theo</h3>
     <ul class="answers" id="q1">
-      <li><input type="checkbox" value="1" id="ans1"><label for="ans1">Báo cáo vụ án</label></li>
-      <li><input type="checkbox" value="2" id="ans2"><label for="ans2">Câu hỏi về nạn nhân</label></li>
-      <li><input type="checkbox" value="3" id="ans3"><label for="ans3">Lời khai nhân chứng: Nguyễn Văn Hải</label></li>
-      <li><input type="checkbox" value="4" id="ans4"><label for="ans4">Lời khai nhân chứng: Nguyễn Thị Lan</label></li>
-      <li><input type="checkbox" value="5" id="ans5"><label for="ans5">Lời khai nhân chứng: Nguyễn Nhật Linh</label></li>
-      <li><input type="checkbox" value="6" id="ans6"><label for="ans6">Lời khai nghi phạm: Nguyễn Ngọc</label></li>
-      <li><input type="checkbox" value="7" id="ans7"><label for="ans7">Lời khai nghi phạm: Vũ Hải Yến</label></li>
-      <li><input type="checkbox" value="8" id="ans8"><label for="ans8">Lời khai nghi phạm: Hoàng Tiến</label></li>
-      <li><input type="checkbox" value="9" id="ans9"><label for="ans9">Giám định mẫu vật: con dao</label></li>
-      <li><input type="checkbox" value="10" id="ans10"><label for="ans10">Giám định mẫu vật: đôi giày của Ngọc</label></li>
-      <li><input type="checkbox" value="11" id="ans11"><label for="ans11">Giám định mẫu vật: Ly rượu</label></li>
-      <li><input type="checkbox" value="12" id="ans12"><label for="ans12">Ảnh hiện trường</label></li>
+      <li><input type="checkbox" value="0"><label>Trung tâm thương mại DMark</label></li>
+      <li><input type="checkbox" value="1"><label>Tòa Nhà Time Square</label></li>
+      <li><input type="checkbox" value="2"><label>Khu đô thị Nam Bắc Hải</label></li>
+      <li><input type="checkbox" value="3"><label>Công ty điện thoại Dtel</label></li>
+      <li><input type="checkbox" value="4"><label>Quán D’Coffee</label></li>
+      <li><input type="checkbox" value="5"><label>Bảo tàng quân sự</label></li>
+      <li><input type="checkbox" value="6"><label>Cây cầu thời đại</label></li>
+      <li><input type="checkbox" value="7"><label>Khu đô thị xanh Bắc Ái</label></li>
+      <li><input type="checkbox" value="8"><label>Hiệu thuốc DPharma</label></li>
+      <li><input type="checkbox" value="9"><label>Cánh đồng điện gió</label></li>
+      <li><input type="checkbox" value="10"><label>Trường quốc tế DSchool</label></li>
+      <li><input type="checkbox" value="11"><label>Khu tập thể viên chức quận</label></li>
+      <li><input type="checkbox" value="12"><label>Trường tiểu học Bắc Hải</label></li>
+      <li><input type="checkbox" value="13"><label>Tòa nhà DCapital</label></li>
+      <li><input type="checkbox" value="14"><label>Công viên Quận Bắc Hải</label></li>
+      <li><input type="checkbox" value="15"><label>Quán của Van’s</label></li>
+      <li><input type="checkbox" value="16"><label>Tòa nhà thời đại</label></li>
+      <li><input type="checkbox" value="17"><label>Tòa soạn báo DNews</label></li>
+      <li><input type="checkbox" value="18"><label>Nhà thờ Bắc Hải</label></li>
+      <li><input type="checkbox" value="19"><label>Nhà hàng Fletcher’s</label></li>
+      <li><input type="checkbox" value="20"><label>Trung tâm hành chính Quận</label></li>
+      <li><input type="checkbox" value="21"><label>Khu đồi gió</label></li>
+      <li><input type="checkbox" value="22"><label>Toa tàu Ký ức</label></li>
+      <li><input type="checkbox" value="23"><label>Tiệm cắt tóc L’Sharp</label></li>
+      <li><input type="checkbox" value="24"><label>Bưu điện Quận Bắc Hải</label></li>
+      <li><input type="checkbox" value="25"><label>Chung cư Thiên An</label></li>
+      <li><input type="checkbox" value="26"><label>Khu công nghiệp Tây Bắc Hải</label></li>
+      <li><input type="checkbox" value="27"><label>Bãi rác Quận</label></li>
+      <li><input type="checkbox" value="28"><label>Trạm xăng Chữ Tín</label></li>
+      <li><input type="checkbox" value="29"><label>Sân bowling Dillard</label></li>
+      <li><input type="checkbox" value="30"><label>Quán ăn góc phố Nhỏ</label></li>
+      <li><input type="checkbox" value="31"><label>Tiệm thịt DMeet</label></li>
+      <li><input type="checkbox" value="32"><label>Cửa hàng đồ câu</label></li>
+      <li><input type="checkbox" value="33"><label>Cửa hàng tạp hóa</label></li>
+      <li><input type="checkbox" value="34"><label>Tiệm kim hoàn 4T</label></li>
+      <li><input type="checkbox" value="35"><label>Khu công nghiệp Bắc Hải</label></li>
+    </ul>
+
+    <h3>Câu 2: Thời gian diễn ra vụ án</h3>
+    <ul class="answers" id="q2">
+      <li><input type="checkbox" value="0"><label>Ngày 26/04 </label></li>
+      <li><input type="checkbox" value="1"><label>Ngày 27/04</label></li>
+      <li><input type="checkbox" value="2"><label>Ngày 28/04</label></li>
+      <li><input type="checkbox" value="3"><label>Ngày 29/04</label></li>
+      <li><input type="checkbox" value="4"><label>Ngày 30/04</label></li>
+      <li><input type="checkbox" value="5"><label>Ngày 01/05</label></li>
+      <li><input type="checkbox" value="6"><label>Ngày 02/05</label></li>
     </ul>
 
     <button onclick="checkAnswers()">Kiểm tra đáp án</button>
-
-    <!-- Nút gợi ý với 2 dòng text -->
     <button class="hint-box" onclick="showHintPopup()">
       <span class="hint-title">Gợi ý</span>
       <span class="hint-sub">(chỉ sử dụng gợi ý khi đã rất bế tắc)</span>
@@ -206,15 +229,13 @@
     <img id="result-image" src="" alt="Kết quả">
   </div>
 
-  <!-- Popup sai -->
   <div class="popup" id="popup">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup')">×</span>
-      <img id="popup-img" src="" alt="Sai rồi">
+      <img src="https://raw.githubusercontent.com/designdaovn/acgiaacbao-nhiemvu2/refs/heads/main/khi%20chon%20dap%20an%20sai.png" alt="Sai rồi">
     </div>
   </div>
 
-  <!-- Popup gợi ý -->
   <div class="popup" id="hint-popup">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('hint-popup')">×</span>
@@ -224,39 +245,44 @@
 
   <script>
     function checkAnswers() {
-      let selected = [];
-      document.querySelectorAll('#q1 input[type="checkbox"]:checked').forEach(cb => {
-        selected.push(parseInt(cb.value));
-      });
+      const selectedQ1 = [...document.querySelectorAll('#q1 input:checked')].map(cb => parseInt(cb.value));
+      const selectedQ2 = [...document.querySelectorAll('#q2 input:checked')].map(cb => parseInt(cb.value));
 
-      if (selected.length !== 3) {
-        alert("Bạn phải chọn đúng 3 đáp án!");
+      if (selectedQ1.length !== 1) {
+        alert("Câu 1: Bạn phải chọn đúng 1 đáp án!");
+        return;
+      }
+      if (selectedQ2.length !== 2) {
+        alert("Câu 2: Bạn phải chọn đúng 2 đáp án!");
         return;
       }
 
-      const correct = [6, 9, 12];
-      selected.sort((a,b) => a-b);
+      const correctQ1 = [16];  // đáp án đúng là số 17
+      const correctQ2 = [3, 4]; // giữ nguyên
 
-      if (JSON.stringify(selected) === JSON.stringify(correct)) {
+      selectedQ1.sort();
+      selectedQ2.sort();
+
+      const q1Correct = JSON.stringify(selectedQ1) === JSON.stringify(correctQ1);
+      const q2Correct = JSON.stringify(selectedQ2) === JSON.stringify(correctQ2);
+
+      if (q1Correct && q2Correct) {
         document.getElementById('quiz').style.display = 'none';
         document.getElementById('result-img').style.display = 'block';
         document.getElementById('result-image').src =
-          "https://raw.githubusercontent.com/designdaovn/Hosomat-acgiaacbao/refs/heads/main/Giai%20thich%20copy.jpg";
+          "https://raw.githubusercontent.com/designdaovn/Consotuthan_Nhiemvu1/refs/heads/main/Giai%20thich%20copy.jpg";
       } else {
         document.getElementById('popup').style.display = 'flex';
-        document.getElementById('popup-img').src =
-          "https://raw.githubusercontent.com/designdaovn/Hosomat-acgiaacbao/refs/heads/main/khichondaansai.png";
       }
     }
 
     function closePopup(id) {
-      const p = document.getElementById(id);
-      if (p) p.style.display = 'none';
+      document.getElementById(id).style.display = 'none';
     }
 
     function showHintPopup() {
-      const HINT_IMAGE_URL = "https://raw.githubusercontent.com/designdaovn/Hosomat-acgiaacbao/refs/heads/main/goi%20y%201.png";
-      document.getElementById('hint-popup-img').src = HINT_IMAGE_URL;
+      document.getElementById('hint-popup-img').src =
+        "https://raw.githubusercontent.com/designdaovn/Consotuthan_Nhiemvu1/refs/heads/main/goi%20y%201.jpg";
       document.getElementById('hint-popup').style.display = 'flex';
     }
 
@@ -265,7 +291,6 @@
         if (e.target === p) p.style.display = 'none';
       });
     });
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
